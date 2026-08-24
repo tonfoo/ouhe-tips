@@ -1,0 +1,54 @@
+:root{
+  --bg:#0f1115; --card:#171a21; --border:#2a2e38;
+  --txt:#d8dee8; --dim:#8a93a5;
+  --gold:#ffd700; --blue:#4fc3f7; --green:#69f0ae; --orange:#ff9800; --red:#ff5252;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,"Microsoft YaHei",sans-serif;line-height:1.55;padding-bottom:40px}
+header{background:#13161d;border-bottom:1px solid var(--border);padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{font-size:26px}
+.brand h1{font-size:18px;color:var(--gold)}
+.tagline{font-size:11px;color:var(--dim)}
+.vip-bar{display:flex;align-items:center;gap:10px;font-size:13px}
+#vipStatus{color:var(--green);font-weight:bold}
+#vipStatus.vip{color:var(--gold)}
+main{max-width:720px;margin:0 auto;padding:16px}
+.hero{margin-bottom:14px}
+.hero h2{font-size:20px;color:var(--gold)}
+.meta{font-size:12px;color:var(--blue);margin:4px 0}
+.note{font-size:11.5px;color:var(--dim);background:#13161d;border:1px solid var(--border);border-radius:8px;padding:8px 10px;margin:8px 0}
+.legend{font-size:12px;color:var(--dim);display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px}
+.dot.wh{background:var(--blue)}
+.dot.lb{background:var(--green)}
+.legend-fair{color:var(--orange)}
+.match{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;margin:10px 0;position:relative}
+.match.locked{filter:blur(5px);user-select:none;pointer-events:none}
+.match .no{position:absolute;top:-8px;left:10px;background:var(--gold);color:#111;font-size:11px;font-weight:bold;padding:2px 8px;border-radius:10px}
+.match h3{font-size:15px;color:var(--gold);margin:4px 0 2px}
+.match .league{font-size:11.5px;color:var(--dim)}
+.match .odds{font-size:12.5px;margin:6px 0}
+.match .odds b{color:var(--blue)}
+.match .odds .lb b{color:var(--green)}
+.match .fair{font-size:12px;color:var(--orange);margin:4px 0}
+.match .verdict{font-size:13.5px;font-weight:bold;color:var(--green);margin-top:6px;border-top:1px dashed var(--border);padding-top:6px}
+.match .verdict.low{color:var(--orange)}
+.match .conf{font-size:11px;color:var(--dim);margin-top:2px}
+.match .analysis{font-size:12.5px;color:#b8c0cc;margin-top:6px}
+.lock-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(15,17,21,.92);border:1px solid var(--gold);border-radius:12px;padding:10px 14px;font-size:12px;color:var(--gold);text-align:center;z-index:5;pointer-events:auto}
+.lock-badge .lock-ico{font-size:22px;display:block;margin-bottom:4px}
+.unlock-panel{background:var(--card);border:1px solid var(--gold);border-radius:12px;padding:16px;margin-top:20px}
+.unlock-panel h3{color:var(--gold);margin-bottom:6px}
+.unlock-panel p{font-size:12.5px;color:var(--dim);margin:4px 0}
+.unlock-form{display:flex;gap:8px;margin:10px 0}
+.unlock-form input{flex:1;background:#0f1115;border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--txt);font-size:14px}
+.btn{background:#1c2129;border:1px solid var(--border);color:var(--txt);border-radius:8px;padding:9px 16px;font-size:13px;cursor:pointer}
+.btn-gold{background:linear-gradient(135deg,#ffd700,#f0a500);color:#111;font-weight:bold;border:none}
+.err{color:var(--red);font-size:12px;min-height:16px}
+.plans{display:flex;gap:10px;margin:14px 0}
+.plan{flex:1;background:#0f1115;border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.plan h4{color:var(--blue);margin-bottom:4px}
+.plan .price{color:var(--gold);font-size:18px;font-weight:bold;margin-top:6px}
+.contact{font-size:12px;color:var(--dim)}
+footer{text-align:center;padding:20px 16px 0;color:var(--dim);font-size:11.5px}

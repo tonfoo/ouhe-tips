@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>欧核精算 · 每日竞彩欧赔分析</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">🐉</span>
+    <div>
+      <h1>欧核精算</h1>
+      <p class="tagline">欧核⑬步 · 独立赔率精算 · 不参考任何网络推荐</p>
+    </div>
+  </div>
+  <div class="vip-bar" id="vipBar">
+    <span id="vipStatus">免费会员</span>
+    <button id="btnUnlock" class="btn btn-gold">解锁全部</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h2 id="reportTitle">今日分析</h2>
+    <p class="meta" id="reportMeta"></p>
+    <p class="note" id="reportNote"></p>
+    <div class="legend">
+      <span><i class="dot wh"></i>威廉希尔</span>
+      <span><i class="dot lb"></i>立博</span>
+      <span class="legend-fair">合理区间 = 欧核六体系表精算</span>
+    </div>
+  </section>
+
+  <section id="matchList" class="match-list"></section>
+
+  <section class="unlock-panel" id="unlockPanel">
+    <h3>🔒 VIP 会员专区</h3>
+    <p>免费会员每日可查看 <b>1 场</b>完整精算；输入会员口令解锁全部 11 场。</p>
+    <div class="unlock-form">
+      <input type="text" id="vipKey" placeholder="输入会员口令" autocomplete="off">
+      <button id="btnSubmitKey" class="btn btn-gold">解锁</button>
+    </div>
+    <p class="err" id="keyErr"></p>
+    <div class="plans">
+      <div class="plan">
+        <h4>免费会员</h4>
+        <p>每日 1 场精算</p>
+        <p class="price">¥0</p>
+      </div>
+      <div class="plan">
+        <h4>VIP 会员</h4>
+        <p>每日全部场次精算</p>
+        <p class="price">666元 / 月</p>
+      </div>
+    </div>
+    <p class="contact">开通会员请联系站长（微信/转账后获取口令）</p>
+  </section>
+</main>
+
+<footer>
+  <p>⚠️ 分析仅供研究参考，不构成投注建议 · 理性购彩</p>
+  <p class="sub">欧核⑬步独立精算 · 数据源 500彩票网</p>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
