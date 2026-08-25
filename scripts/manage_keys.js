@@ -3,8 +3,8 @@
  * 会员口令管理脚本（方案A：一人一口令 + 7天到期 + 微信登记）
  *
  * 用法：
- *   node scripts/manage_keys.js add    <微信名>   # 添加新会员（生成口令，7天有效）
- *   node scripts/manage_keys.js extend <微信名>   # 续费7天（从当前到期日顺延；已过期则从今天起）
+ *   node scripts/manage_keys.js add    <微信名> [天数]   # 添加新会员（生成口令，默认7天，可指定天数如20）
+ *   node scripts/manage_keys.js extend <微信名> [天数]   # 续费（默认7天，可指定天数；从当前到期日顺延）
  *   node scripts/manage_keys.js revoke <微信名>   # 踢人（删除该会员口令）
  *   node scripts/manage_keys.js list              # 列出所有会员及到期时间
  *   node scripts/manage_keys.js newkey <微信名>   # 换新口令（重新生成，原口令作废）
@@ -43,18 +43,25 @@ function findByName(db, name) {
   return db.keys.find(k => k.name === name);
 }
 
-const [, , cmd, arg] = process.argv;
+const [, , cmd, arg, daysArg] = process.argv;
+
+function parseDays() {
+  if (!daysArg) return null;
+  const d = parseInt(daysArg, 10);
+  return isNaN(d) || d <= 0 ? null : d;
+}
 
 if (cmd === 'add' && arg) {
   const db = load();
   if (findByName(db, arg)) { console.log('❌ 该微信已存在，请用 newkey 或 extend'); process.exit(1); }
   const key = genKey();
   const now = new Date();
-  db.keys.push({ name: arg, hash: sha256(key), expires: fmt(addDays(now, DEFAULT_DAYS)), created: fmt(now) });
+  const days = parseDays() || DEFAULT_DAYS;
+  db.keys.push({ name: arg, hash: sha256(key), expires: fmt(addDays(now, days)), created: fmt(now) });
   save(db);
   console.log('✅ 已添加会员：' + arg);
   console.log('🔑 口令：' + key);
-  console.log('⏰ 到期：' + fmt(addDays(now, DEFAULT_DAYS)) + '（' + DEFAULT_DAYS + '天）');
+  console.log('⏰ 到期：' + fmt(addDays(now, days)) + '（' + days + '天）');
   console.log('📤 请把口令发给用户，然后运行 .\\deploy.ps1 发布');
 } else if (cmd === 'extend' && arg) {
   const db = load();
@@ -63,9 +70,10 @@ if (cmd === 'add' && arg) {
   const base = new Date(u.expires.replace(' ', 'T'));
   const now = new Date();
   const from = base > now ? base : now; // 已过期则从今天算
-  u.expires = fmt(addDays(from, DEFAULT_DAYS));
+  const days = parseDays() || DEFAULT_DAYS;
+  u.expires = fmt(addDays(from, days));
   save(db);
-  console.log('✅ 已续费：' + arg + '，新到期 ' + u.expires + '（原口令不变）');
+  console.log('✅ 已续费：' + arg + '，新到期 ' + u.expires + '（' + days + '天，原口令不变）');
 } else if (cmd === 'revoke' && arg) {
   const db = load();
   const before = db.keys.length;
