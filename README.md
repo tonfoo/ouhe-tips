@@ -9,41 +9,32 @@ ouhe-tips/
 ├── index.html          # 首页（标题/会员区/列表容器）
 ├── assets/
 │   ├── style.css       # 暗黑风格样式
-│   └── app.js          # 渲染+口令解锁逻辑（改口令在这里：VIP_KEY）
+│   └── app.js          # 渲染+口令解锁逻辑（方案A：SHA-256 校验）
 ├── data/
-│   └── 2026-08-24.json # 每日分析数据（每天新增一个）
-└── deploy.ps1          # 一键发布脚本（在仓库根目录）
+│   ├── YYYY-MM-DD.json # 每日分析数据（每天新增一个）
+│   └── vip-keys.json   # 会员口令哈希表（无明文）
+├── scripts/
+│   └── manage_keys.js  # 会员管理：add/extend/revoke/newkey/list
+└── deploy.ps1          # 一键发布脚本（git commit+push，GitHub Pages 自动部署）
 ```
 
 ## 每日更新流程（小龙自动执行）
 
 1. 用欧核⑬步精算当日 11 场 → 生成 `data/YYYY-MM-DD.json`
 2. 修改 `assets/app.js` 里的 `DATA_FILE` 指向新文件
-3. 运行 `deploy.ps1` → git push → Cloudflare Pages 自动部署（1-3分钟生效）
+3. 运行 `deploy.ps1` → git push → GitHub Pages 自动部署（1-3分钟生效）
 
-## 会员口令
+## 会员口令（v1.2 方案A：一人一口令 + 7天到期）
 
-- 口令在 `assets/app.js` 顶部 `VIP_KEY = 'OUHE-2026-666'`（站长自行修改）
+- 口令管理全部走 `scripts/manage_keys.js`（微信登记，SHA-256 哈希存储，无明文）
+- `add <微信名>` 添加会员（生成口令，7天有效）→ 把口令私发用户 → deploy 推送
+- `extend <微信名>` 续费7天 ｜ `revoke <微信名>` 踢人 ｜ `newkey <微信名>` 换口令
+- 到期自动锁回；被踢立即失效；一人一口令不可共用
 - 免费用户：每天看第 1 场，其余锁定（`data` 里的 `freeMatches` 控制场数）
-- 付费用户：收到口令 → 网页输入 → localStorage 记住，解锁全部
-
-## 上线步骤（一次性）
-
-1. **注册 GitHub**（https://github.com）：创建仓库 `ouhe-tips`（Public）
-2. 本机推代码：
-   ```bash
-   git init && git add -A && git commit -m "init"
-   git branch -M main
-   git remote add origin https://github.com/你的用户名/ouhe-tips.git
-   git push -u origin main
-   ```
-   （Windows 推送时会弹窗登录 GitHub 授权，或配置 Personal Access Token）
-3. **注册 Cloudflare**（https://dash.cloudflare.com）→ Workers & Pages → Create → 连接 GitHub 仓库 `ouhe-tips` → 构建命令留空、输出目录留空 → Deploy
-4. 部署完成后访问 `https://ouhe-tips.pages.dev`
 
 ## 收款（过渡期）
 
-- 微信/支付宝人工收款 → 私发口令
+- 微信/支付宝人工收款（微信：Kuxinguyi888）→ 报微信名 → 小龙 add 生成口令 → 发用户
 - 后续可接面包多/虎皮椒自动发货（再升级）
 
 ## 注意
