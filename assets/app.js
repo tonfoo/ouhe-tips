@@ -7,7 +7,7 @@
    ============================================ */
 
 // ── 每日数据文件（更新时改这里：date 字段）──
-const DATA_FILE = 'data/2026-08-26.json';
+const DATA_FILE = 'data/2026-08-27.json';
 const KEYS_FILE = 'data/vip-keys.json';
 
 const LS_KEY = 'ouhe_vip_v1';
